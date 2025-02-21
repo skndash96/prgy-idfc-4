@@ -1,6 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+const initialLevels = [
+  {
+    id: 1,
+    name: "Beginner's Luck",
+    description: "Learn basic scams.",
+    unlocked: true,
+  },
+  {
+    id: 2,
+    name: "Scam Buster",
+    description: "Identify social engineering fraud.",
+    unlocked: false,
+  },
+  {
+    id: 3,
+    name: "Cyber Detective",
+    description: "Spot real-time scams.",
+    unlocked: false,
+  },
+  {
+    id: 4,
+    name: "Master of Deception",
+    description: "Understand deepfake and fraud tactics.",
+    unlocked: false,
+  },
+  {
+    id: 5,
+    name: "Fraud Terminator",
+    description: "Master all scam detection skills.",
+    unlocked: false,
+  },
+];
+const savedLevels =
+  JSON.parse(localStorage.getItem("unlockedLevels")) || initialLevels;
 
 const emailsData = [
   {
@@ -104,7 +137,7 @@ const Level1 = () => {
   };
 
   return (
-    <div className="-mt-12 flex flex-col items-center p-6 text-white relative">
+    <div className="-mt-17 flex flex-col items-center p-6 text-white relative">
       {/* Score & Timer in One Large Button */}
       <div className="absolute top-4 right-4 bg-gray-900 px-6 py-3 rounded-full text-lg font-semibold shadow-md flex space-x-6">
         <span className="text-green-400">Score: {score}</span>
@@ -213,6 +246,7 @@ const Level1 = () => {
         </div>
       )}
 
+      {/* All Emails Viewed Popup */}
       {/* All Emails Viewed Popup */}
       {allEmailsViewed && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
