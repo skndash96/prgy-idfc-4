@@ -15,11 +15,29 @@ const LevelSelection = () => {
 
   // Load unlocked levels from localStorage on mount
   useEffect(() => {
-    const savedLevels = JSON.parse(localStorage.getItem("unlockedLevels"));
-    if (savedLevels) {
-      setLevels(savedLevels);
-    }
+    const savedLevels = JSON.parse(localStorage.getItem("unlockedLevels")) || [];
+
+    // Merge savedLevels with initialLevels while keeping names/descriptions
+    const updatedLevels = initialLevels.map((level, index) => {
+      const savedLevel = savedLevels.find((l) => l.id === level.id);
+      return savedLevel ? { ...level, unlocked: savedLevel.unlocked } : level;
+    });
+
+    setLevels(updatedLevels);
   }, []);
+
+  // Function to unlock the next level after completion
+  const unlockNextLevel = (completedLevelId) => {
+    setLevels((prevLevels) => {
+      const updatedLevels = prevLevels.map((level) =>
+        level.id === completedLevelId + 1 ? { ...level, unlocked: true } : level
+      );
+
+      // Save updated unlocked levels to localStorage
+      localStorage.setItem("unlockedLevels", JSON.stringify(updatedLevels));
+      return updatedLevels;
+    });
+  };
 
   return (
     <div className="text-center">
@@ -38,9 +56,16 @@ const LevelSelection = () => {
             }`}
           >
             <h2 className="font-bold text-3xl">{level.name}</h2>
+            <p className="text-sm mt-2">{level.description}</p>
+
             <button
               className="mt-4"
-              onClick={() => level.unlocked && navigate(`/game/${level.id}`)}
+              onClick={() => {
+                if (level.unlocked) {
+                  navigate(`/game/${level.id}`);
+                  unlockNextLevel(level.id); // Unlock the next level after finishing
+                }
+              }}
               disabled={!level.unlocked}
             >
               <img src={level.unlocked ? "play.svg" : "locked.svg"} alt="play button" />

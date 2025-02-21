@@ -1,6 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+const initialLevels = [
+  {
+    id: 1,
+    name: "Beginner's Luck",
+    description: "Learn basic scams.",
+    unlocked: true,
+  },
+  {
+    id: 2,
+    name: "Scam Buster",
+    description: "Identify social engineering fraud.",
+    unlocked: false,
+  },
+  {
+    id: 3,
+    name: "Cyber Detective",
+    description: "Spot real-time scams.",
+    unlocked: false,
+  },
+  {
+    id: 4,
+    name: "Master of Deception",
+    description: "Understand deepfake and fraud tactics.",
+    unlocked: false,
+  },
+  {
+    id: 5,
+    name: "Fraud Terminator",
+    description: "Master all scam detection skills.",
+    unlocked: false,
+  },
+];
+const savedLevels =
+  JSON.parse(localStorage.getItem("unlockedLevels")) || initialLevels;
 
 const emailsData = [
   {
@@ -104,8 +137,7 @@ const Level1 = () => {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gradient-to-b from-[#070625] via-40% to-[#3D348E] p-6 text-white relative">
-
+    <div className="-mt-17 flex flex-col items-center p-6 text-white relative">
       {/* Score & Timer in One Large Button */}
       <div className="absolute top-4 right-4 bg-gray-900 px-6 py-3 rounded-full text-lg font-semibold shadow-md flex space-x-6">
         <span className="text-green-400">Score: {score}</span>
@@ -199,40 +231,6 @@ const Level1 = () => {
         </div>
       </div>
 
-<<<<<<< HEAD
-      {/* Popup when all emails are read */}
-      {showPopup && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white text-black p-6 rounded-lg shadow-xl text-center">
-            {score < 10 ? (
-              <>
-                <h2 className="text-2xl font-bold mb-2">You Haven't Passed This Level</h2>
-                <p className="text-lg">Your Score: <span className="font-bold text-red-500">{score}</span></p>
-                <button
-                  className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-800 transition-all duration-200"
-                  onClick={() => window.location.reload()}
-                >
-                  Play Again
-                </button>
-              </>
-            ) : (
-              <>
-                <h2 className="text-2xl font-bold mb-2">Congratulations!</h2>
-                <p className="text-lg">Your Score: <span className="font-bold text-green-500">{score}</span></p>
-                <button
-                  className="mt-4 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-800 transition-all duration-200"
-                  onClick={() => window.location.href = "/game/2"}
-                >
-                  Next Level
-                </button>
-              </>
-            )}
-          </div>
-        </div>
-      )}
-
-=======
->>>>>>> 4d638d618d5babb4fdb8f953c50c3c895e7a0227
       {/* Time Up Popup */}
       {timeUp && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -248,6 +246,7 @@ const Level1 = () => {
         </div>
       )}
 
+      {/* All Emails Viewed Popup */}
       {/* All Emails Viewed Popup */}
       {allEmailsViewed && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
