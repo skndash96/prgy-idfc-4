@@ -16,14 +16,14 @@ const initialLevels = [
   },
   {
     id: 3,
-    name: "Cyber Detective",
-    description: "Spot real-time scams.",
+    name: "Phishing Awareness Quiz",
+    description: "Test your knowledge of detection skills.",
     unlocked: false,
   },
   {
     id: 4,
-    name: "Phishing Awareness Quiz",
-    description: "Test your knowledge of detection skills.",
+    name: "Cyber Detective",
+    description: "Spot real-time scams.",
     unlocked: false,
   },
   {
