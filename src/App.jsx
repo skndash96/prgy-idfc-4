@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import Header from "./components/Header"
-import Footer from "./components/Footer"
-import LevelSelection from "./pages/Levels"; // Ensure this file exists
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import LevelSelection from "./pages/Levels";
 import Level1 from "./pages/Level1";
 import Level2 from "./pages/Level2";
 import Level3 from "./pages/Level3";
@@ -23,7 +23,6 @@ const App = () => {
             <Route path="/game/3" element={<Level3 />} />
             <Route path="/game/4" element={<Level4 />} />
             <Route path="/game/5" element={<Level5 />} />
-            
           </Routes>
         </Router>
       </div>
