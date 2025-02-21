@@ -3,9 +3,9 @@ import React, { useState } from "react";
 
 const audios = [
   { id: 1, title: "Scam Call 1", src: "/scam-1.mp3", scam: true },
-  { id: 2, title: "Scam Call 2", src: "/scam-2.mp3", scam: true },
-  { id: 3, title: "Scam Call 3", src: "/scam-3.mp3", scam: true },
-  { id: 4, title: "Scam Call 4", src: "/scam-4.mp3", scam: true },
+  { id: 2, title: "Scam Call 2", src: "/genuine-1.mp3", scam: false },
+  { id: 3, title: "Scam Call 3", src: "/scam-2.mp3", scam: true },
+  { id: 4, title: "Scam Call 4", src: "/genuine-2.mp3", scam: false},
 ];
 
 const Level2 = () => {
@@ -96,10 +96,10 @@ const Level2 = () => {
               className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-md font-bold"
               onClick={() => {
                 setShowPopup(false);
-                navigate("/levels");
+                navigate("/game/3");
               }}
             >
-              OK
+              Next Level
             </button>
           </div>
         </div>
