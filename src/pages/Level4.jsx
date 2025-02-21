@@ -1,17 +1,35 @@
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import chatData from "../pages/chatdata";
 
-const Level4 = () => {
-  const navigate = useNavigate();
+const Chat = () => {
+  const [currentNode, setCurrentNode] = useState("start");
+
+  const handleOptionClick = (nextNode) => {
+    setCurrentNode(nextNode);
+  };
+
+  const currentChat = chatData[currentNode];
 
   return (
-    <div className="text-center min-h-screen flex flex-col items-center justify-center bg-[#D5F6FA]">
-      <h1 className="text-4xl font-bold">Master of Deception</h1>
-      <p className="text-lg mt-4">Understand deepfake and fraud tactics.</p>
-      <button className="mt-6 bg-blue-500 text-white px-4 py-2 rounded" onClick={() => navigate("/levels")}>
-        Back to Levels
-      </button>
+    <div className="min-h-screen flex items-center justify-center bg-gray-900">
+      <div className="bg-gray-800 text-white p-6 rounded-lg shadow-lg max-w-lg w-full">
+        <div className="mb-4">
+          <p className="text-lg font-medium">{currentChat.message}</p>
+        </div>
+        <div className="space-y-3">
+          {currentChat.options?.map((option, index) => (
+            <button
+              key={index}
+              onClick={() => handleOptionClick(option.next)}
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md transition"
+            >
+              {option.text}
+            </button>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Level4;
+export default Chat;
