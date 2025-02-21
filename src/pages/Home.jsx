@@ -1,4 +1,5 @@
 import React from "react";
+import  { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -19,9 +20,9 @@ const Home = () => {
         </p>
 
         {/* Start Button */}
-        <button className="mt-6 px-8 py-3 text-black  rounded-full shadow-lg hover:scale-105 transition-all duration-300 bg-[linear-gradient(to_bottom,#FDFEF2_0%,#FDF045_10%,#FDE409_40%,#FAC206_80%)] font-[Paytone-One] font-[700] text-[20px] drop-shadow-[0px_0px_10px_#72314B]">
+        <Link to='/levels' className="mt-6 px-8 py-3 text-black  rounded-full shadow-lg hover:scale-105 transition-all duration-300 bg-[linear-gradient(to_bottom,#FDFEF2_0%,#FDF045_10%,#FDE409_40%,#FAC206_80%)] font-[Paytone-One] font-[700] text-[20px] drop-shadow-[0px_0px_10px_#72314B]">
           Start Game
-        </button>
+        </Link>
         <p className="mt-2 text-[20px] text-center text-white font-[Paytone-One] font-[900] absolute bottom-4 right-4">
         Privacy Policy | Terms of Use
         </p>
