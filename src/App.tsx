@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route,} from "react-router-dom";
+import Home from "../src/pages/home";
+import LevelSelection from "../src/pages/Levels";
+
 
 function App() {
   return (
-    <div>
-      <h1 className=" text-red-500">Hello</h1>
-    </div>
+    <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/levels" element={<LevelSelection />} />
+          </Routes>
+      </Router>
   );
 }
 
-export default App;
+export default App;   
