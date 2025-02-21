@@ -2,11 +2,36 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const initialLevels = [
-  { id: 1, name: "Beginner's Luck", description: "Learn basic scams.", unlocked: true },
-  { id: 2, name: "Scam Buster", description: "Identify social engineering fraud.", unlocked: false },
-  { id: 3, name: "Cyber Detective", description: "Spot real-time scams.", unlocked: false },
-  { id: 4, name: "Master of Deception", description: "Understand deepfake and fraud tactics.", unlocked: false },
-  { id: 5, name: "Fraud Terminator", description: "Master all scam detection skills.", unlocked: false },
+  {
+    id: 1,
+    name: "Beginner's Luck",
+    description: "Learn basic scams.",
+    unlocked: true,
+  },
+  {
+    id: 2,
+    name: "Scam Buster",
+    description: "Identify social engineering fraud.",
+    unlocked: false,
+  },
+  {
+    id: 3,
+    name: "Cyber Detective",
+    description: "Spot real-time scams.",
+    unlocked: false,
+  },
+  {
+    id: 4,
+    name: "Master of Deception",
+    description: "Understand deepfake and fraud tactics.",
+    unlocked: false,
+  },
+  {
+    id: 5,
+    name: "Fraud Terminator",
+    description: "Master all scam detection skills.",
+    unlocked: false,
+  },
 ];
 
 const LevelSelection = () => {
@@ -15,7 +40,8 @@ const LevelSelection = () => {
 
   // Load unlocked levels from localStorage on mount
   useEffect(() => {
-    const savedLevels = JSON.parse(localStorage.getItem("unlockedLevels")) || [];
+    const savedLevels =
+      JSON.parse(localStorage.getItem("unlockedLevels")) || [];
 
     // Merge savedLevels with initialLevels while keeping names/descriptions
     const updatedLevels = initialLevels.map((level, index) => {
@@ -68,7 +94,10 @@ const LevelSelection = () => {
               }}
               disabled={!level.unlocked}
             >
-              <img src={level.unlocked ? "play.svg" : "locked.svg"} alt="play button" />
+              <img
+                src={level.unlocked ? "play.svg" : "locked.svg"}
+                alt="play button"
+              />
             </button>
           </div>
         ))}
