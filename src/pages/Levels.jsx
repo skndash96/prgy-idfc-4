@@ -22,14 +22,14 @@ const initialLevels = [
   },
   {
     id: 4,
-    name: "Master of Deception",
-    description: "Understand deepfake and fraud tactics.",
+    name: "Phishing Awareness Quiz",
+    description: "Test your knowledge of detection skills.",
     unlocked: false,
   },
   {
     id: 5,
-    name: "Fraud Terminator",
-    description: "Master all scam detection skills.",
+    name: "Master of Deception",
+    description: "Understand deepfake and fraud tactics.",
     unlocked: false,
   },
 ];
