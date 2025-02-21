@@ -21,7 +21,7 @@ const Chat = () => {
             <button
               key={index}
               onClick={() => handleOptionClick(option.next)}
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md transition"
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md transition hover:cursor-pointer"
             >
               {option.text}
             </button>

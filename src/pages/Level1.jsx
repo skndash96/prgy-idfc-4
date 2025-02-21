@@ -210,13 +210,13 @@ const Level1 = () => {
 
               <div className="mt-4 flex space-x-4">
                 <button
-                  className="px-4 py-2 bg-red-500 text-white rounded-lg text-sm hover:bg-red-700 transition-all duration-200"
+                  className="px-4 py-2 bg-red-500 text-white rounded-lg text-sm hover:bg-red-700 transition-all duration-200 hover:cursor-pointer"
                   onClick={() => handleSelection(true)}
                 >
                   Report as Phishing
                 </button>
                 <button
-                  className="px-4 py-2 bg-green-500 text-white rounded-lg text-sm hover:bg-green-700 transition-all duration-200"
+                  className="px-4 py-2 bg-green-500 text-white rounded-lg text-sm hover:bg-green-700 transition-all duration-200 hover:cursor-pointer"
                   onClick={() => handleSelection(false)}
                 >
                   Mark as Safe
@@ -258,7 +258,7 @@ const Level1 = () => {
               <>
                 <p className="text-lg">You have unlocked Level 2!</p>
                 <button
-                  className="mt-4 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-800 transition-all duration-200"
+                  className="mt-4 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-800 transition-all duration-200 hover:cursor-pointer"
                   onClick={() => {
                     // Retrieve saved levels
                     const savedLevels =
@@ -285,7 +285,7 @@ const Level1 = () => {
               </>
             ) : (
               <button
-                className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-800 transition-all duration-200"
+                className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-800 transition-all duration-200 hover:cursor-pointer"
                 onClick={() => window.location.reload()}
               >
                 Play Again
