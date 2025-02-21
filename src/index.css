@@ -1,25 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Paytone+One&display=swap");
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Paytone+One&display=swap');
+
 .font-saira {
-    font-family: 'Saira Stencil One', cursive;
+  font-family: "Saira Stencil One", cursive;
 }
 .font-paytone {
-    font-family: 'Paytone One', sans-serif;
+  font-family: "Paytone One", sans-serif;
 }
 
 .level-card {
-    background: white;
-    padding: 20px;
-    margin: 10px;
-    border-radius: 10px;
-    text-align: center;
-    transition: transform 0.2s;
-  }
-  .level-card:hover {
-    transform: scale(1.05);
-  }
-  .locked {
-    opacity: 0.5;
-    pointer-events: none;
-  }
+  background: white;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+.level-card:hover {
+  transform: scale(1.05);
+}
+.locked {
+  opacity: 0.5;
+  pointer-events: none;
+}
