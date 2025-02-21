@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div className="p-4 flex flex-col items-center justify-center">
       {/* Title */}
-      <p className="mt-6 text-6xl md:text-8xl text-center text-transparent bg-clip-text bg-[linear-gradient(to_bottom,#A2FEFE_0%,#D5F6FA_40%,#DDF5F9_60%,#E9DBFC_80%,#ADC3FC_100%)] font-saira drop-shadow-[-15px_4px_8px_#6B1868]">
+      <p className="mt-6 md:mt-16 text-6xl md:text-8xl text-center text-transparent bg-clip-text bg-[linear-gradient(to_bottom,#A2FEFE_0%,#D5F6FA_40%,#DDF5F9_60%,#E9DBFC_80%,#ADC3FC_100%)] font-saira drop-shadow-[-15px_4px_8px_#6B1868]">
         Bait or Legit?
       </p>
       {/* Subtitle */}

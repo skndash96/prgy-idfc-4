@@ -86,9 +86,6 @@ const Level1 = () => {
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gradient-to-b from-[#070625] via-40% to-[#3D348E] p-6 text-white relative">
-      
-      {/* Logo at Top Left */}
-      <img src="logo.png" alt="Game Logo" className="absolute top-4 left-4 w-16 h-16" />
 
       {/* Score & Timer in One Large Button */}
       <div className="absolute top-4 right-4 bg-gray-900 px-6 py-3 rounded-full text-lg font-semibold shadow-md flex space-x-6">
@@ -174,9 +171,9 @@ const Level1 = () => {
                 <p className="text-lg">Your Score: <span className="font-bold text-green-500">{score}</span></p>
                 <button
                   className="mt-4 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-800 transition-all duration-200"
-                  onClick={() => window.location.href = "/levels"}
+                  onClick={() => window.location.href = "/game/2"}
                 >
-                  Back to Levels
+                  Next Level
                 </button>
               </>
             )}

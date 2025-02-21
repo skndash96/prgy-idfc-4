@@ -13,7 +13,7 @@ const App = () => {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-[#070625] via-40% to-[#3D348E] text-white">
       <Header />
-      <div className="grow">
+      <div className="grow flex flex-col h-full">
         <Router>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -23,6 +23,7 @@ const App = () => {
             <Route path="/game/3" element={<Level3 />} />
             <Route path="/game/4" element={<Level4 />} />
             <Route path="/game/5" element={<Level5 />} />
+            
           </Routes>
         </Router>
       </div>
