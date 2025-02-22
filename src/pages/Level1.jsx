@@ -189,7 +189,7 @@ const Level1 = () => {
   return (
     <div className="-mt-17 flex flex-col items-center p-6 text-white relative">
       {/* Score & Timer in One Large Button */}
-      <div className="absolute top-4 right-4 bg-gray-900 px-6 py-3 rounded-full text-lg font-semibold shadow-md flex space-x-6">
+      <div className="border-blue-300 border-4 absolute top-4 right-4 bg-gray-900 px-6 py-3 rounded-full text-lg font-semibold shadow-md flex space-x-6">
         <span className="text-green-400">Score: {score}</span>
         <span className="text-red-400">Time Left: {timeLeft}s</span>
       </div>
