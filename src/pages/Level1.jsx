@@ -37,7 +37,7 @@ const initialLevels = [
     name: "Fake news Detector",
     description: "Do you believe everything you see on social media?",
     unlocked: false,
-  }
+  },
 ];
 const savedLevels =
   JSON.parse(localStorage.getItem("unlockedLevels")) || initialLevels;
@@ -108,6 +108,44 @@ Best of luck to all that enter!`,
     phishing: true,
     image: "/mail.png",
   },
+  {
+    id: 6,
+    sender: "HR Department",
+    subject: "Annual Leave Policy Update - Please Review",
+    content:
+      "Dear Team,\n\nWe would like to inform you about an update to our annual leave policy, effective April 1, 2025. The updated policy includes:\n- Increased leave days for employees with over 5 years of service.\n- New guidelines on leave carryover.\n- Simplified request and approval process.\n\nPlease review the full details here:\n\n<a href='https://company-portal.com/leave-policy' target='_blank'>View Updated Policy</a>\n\nIf you have any questions, feel free to reach out to HR at hr@company.com.\n\nBest regards,\nHR Department",
+    phishing: false,
+    image: "/mail.png",
+  },
+
+  {
+    id: 7,
+    sender: "IT Helpdesk",
+    subject: "Urgent: Verify Your Email Access Now",
+    content:
+      "Dear User,\n\nWe have noticed unusual login attempts on your account. To prevent unauthorized access, please verify your email immediately by clicking the secure link below:\n\n<a href='https://secure-mail.verification.com' class='text-blue-500 underline'>Verify Email Now</a>\n\nFailure to verify within 24 hours will result in account suspension.\n\nThank you,\nIT Helpdesk Support",
+    phishing: true,
+    image: "/mail.png",
+  },
+  {
+    id: 8,
+    sender: "Finance Department",
+    subject: "Payroll Processing Update - Important Notice",
+    content:
+      "Dear Employees,\n\nWe would like to inform you that our payroll processing system will undergo scheduled maintenance on March 20, 2025. As a result, salary disbursements for this cycle may be delayed by 24 hours.\n\nRest assured, we are working to minimize any inconvenience. If you have any concerns, please contact our finance team at finance@company.com.\n\nThank you for your patience and understanding.\n\nBest regards,\nFinance Department",
+    phishing: false,
+    image: "/mail.png",
+  },
+
+  {
+    id: 9,
+    sender: "Admin Support",
+    subject: "Action Required: Confirm Your Employee Benefits",
+    content:
+      "Dear Employee,\n\nWe are updating our employee benefits records and need you to confirm your details. Failure to update your information may result in benefit suspension.\n\nPlease confirm your details immediately by clicking the link below:\n\n<a href='https://secure-hrbenefits.com/update' class='text-blue-500 underline'>Confirm Benefits Now</a>\n\nThis must be completed within 48 hours to avoid service interruption.\n\nBest regards,\nAdmin Support Team",
+    phishing: true,
+    image: "/mail.png",
+  },
 ];
 
 const Level1 = () => {
@@ -115,11 +153,11 @@ const Level1 = () => {
   const [emails, setEmails] = useState(emailsData);
   const [selectedEmail, setSelectedEmail] = useState(null);
   const [score, setScore] = useState(0);
-  const SECS = 120
+  const SECS = 120;
   const [timeLeft, setTimeLeft] = useState(SECS);
   const [timeUp, setTimeUp] = useState(false);
   const [allEmailsViewed, setAllEmailsViewed] = useState(false);
-  const { addScore } = useProfile()
+  const { addScore } = useProfile();
 
   useEffect(() => {
     if (timeLeft > 0) {
@@ -133,7 +171,8 @@ const Level1 = () => {
 
   const handleSelection = (isPhishing) => {
     if (selectedEmail) {
-      const newScore = selectedEmail.phishing === isPhishing ? score + 3 : score - 1;
+      const newScore =
+        selectedEmail.phishing === isPhishing ? score + 3 : score - 1;
       setScore(newScore);
       const remainingEmails = emails.filter(
         (email) => email.id !== selectedEmail.id
@@ -142,7 +181,7 @@ const Level1 = () => {
       setSelectedEmail(null);
       if (remainingEmails.length === 0) {
         setAllEmailsViewed(true);
-        addScore(1, newScore, SECS - timeLeft)
+        addScore(1, newScore, SECS - timeLeft);
       }
     }
   };
@@ -244,9 +283,17 @@ const Level1 = () => {
 
       <ul className="mt-4 flex gap-2">
         {new Array(emailsData.length).fill(null).map((_, i) => (
-          <li key={i} className={`w-4 h-4 rounded-full ${(i < emailsData.length - emails.length || (selectedEmail && i === emailsData.length - emails.length)) ? "bg-amber-400" : "bg-amber-800"}`}></li>
+          <li
+            key={i}
+            className={`w-4 h-4 rounded-full ${
+              i < emailsData.length - emails.length ||
+              (selectedEmail && i === emailsData.length - emails.length)
+                ? "bg-amber-400"
+                : "bg-amber-800"
+            }`}
+          ></li>
         ))}
-      </ul  >
+      </ul>
 
       {/* Time Up Popup */}
       {timeUp && (

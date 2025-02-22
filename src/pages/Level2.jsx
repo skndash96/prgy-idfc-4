@@ -112,10 +112,10 @@ const Level2 = () => {
               className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-md font-bold hover:cursor-pointer"
               onClick={() => {
                 setShowPopup(false);
-                navigate("/game/3");
+                navigate("/levels");
               }}
             >
-              Next Level
+              Back to Levels
             </button>
           </div>
         </div>
