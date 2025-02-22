@@ -1,38 +1,38 @@
 import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useProfile } from "../hooks/useProfile";
 
-const newsArticles = [
+const scamQuestions = [
   {
     id: 1,
-    text: "Breaking: Government announces 70% tax on all online transactions!",
-    correct: "Phished",
+    image: "/fake-tech-1.png", // Replace with actual image URLs
+    question: "What type of scam is shown in the image?",
+    options: ["Phishing", "Ponzi Scheme", "Fake Tech Support"],
+    correct: "Fake Tech Support",
   },
   {
     id: 2,
-    text: "New study finds coffee can boost memory and brain function!",
-    correct: "Genuine",
+    image: "/identity-theft.png",
+    question: "Identify this type of scam:",
+    options: ["Investment Fraud", "Identity Theft", "Ponzi Scam"],
+    correct: "Identity Theft",
   },
   {
     id: 3,
-    text: "Urgent: Your bank account has been compromised! Click here to secure it.",
-    correct: "Phished",
-  },
-  {
-    id: 4,
-    text: "Scientists discover a new exoplanet with potential signs of life!",
-    correct: "Genuine",
+    image: "/lottery-scam.webp",
+    question: "What kind of scam is this?",
+    options: ["Lottery Scam", "Fake Tech Support", "Ponzi Scam"],
+    correct: "Lottery Scam",
   },
 ];
 
 const Level6 = () => {
   const navigate = useNavigate();
   const [score, setScore] = useState(0);
-  const [currentNews, setCurrentNews] = useState(0);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [passed, setPassed] = useState(false);
-  const [isUnlocked, setIsUnlocked] = useState(false);
   const { addScore } = useProfile();
   const [startTime, setStartTime] = useState(Date.now());
 
@@ -42,12 +42,12 @@ const Level6 = () => {
       return;
     }
 
-    const isCorrect = selectedOption === newsArticles[currentNews].correct;
+    const isCorrect = selectedOption === scamQuestions[currentQuestion].correct;
     const newScore = score + (isCorrect ? 3 : -1);
     setScore(newScore);
 
-    if (currentNews < newsArticles.length - 1) {
-      setCurrentNews((prev) => prev + 1);
+    if (currentQuestion < scamQuestions.length - 1) {
+      setCurrentQuestion((prev) => prev + 1);
       setSelectedOption(null);
     } else {
       addScore(6, newScore, Math.floor((Date.now() - startTime) / 1000));
@@ -58,24 +58,19 @@ const Level6 = () => {
 
   return (
     <div className="text-center flex flex-col items-center justify-around gap-y-8 p-6">
-      <h1 className="text-5xl font-bold font-paytone">Fake News Detection</h1>
-      <p className="text-xl font-paytone mt-4">
-        Read the news article and decide if it's Genuine or Phished.
-      </p>
+      <h1 className="text-5xl font-bold font-paytone">Scam Detection</h1>
+      <p className="text-xl font-paytone mt-4">Identify the type of scam based on the image.</p>
 
-      <div className="bg-gradient-to-b from-red-100 to-red-500 text-black font-paytone p-6 rounded-lg shadow-md w-3/4">
-        <p className="text-2xl font-semibold">
-          {newsArticles[currentNews].text}
-        </p>
+      <div className="bg-gradient-to-b from-yellow-100 to-yellow-500 text-black font-paytone p-6 rounded-lg shadow-md w-3/4">
+        <img src={scamQuestions[currentQuestion].image} alt="Scam Example" className="rounded-lg w-full max-h-96 object-contain" />
+        <p className="text-2xl font-semibold mt-4">{scamQuestions[currentQuestion].question}</p>
 
         <div className="mt-4 flex flex-col gap-y-2">
-          {["Genuine", "Phished"].map((option) => (
+          {scamQuestions[currentQuestion].options.map((option) => (
             <button
               key={option}
               className={`p-3 text-lg rounded-lg ${
-                selectedOption === option
-                  ? "bg-blue-400 text-white"
-                  : "bg-gray-100"
+                selectedOption === option ? "bg-blue-400 text-white" : "bg-gray-100"
               } hover:bg-blue-300 transition hover:cursor-pointer`}
               onClick={() => setSelectedOption(option)}
             >
@@ -106,9 +101,7 @@ const Level6 = () => {
           <div className="bg-white text-black p-8 rounded-lg text-center shadow-lg">
             <h2 className="text-3xl font-bold mb-4">Game Over!</h2>
             <p className="text-2xl">
-              {passed
-                ? "You beat Level 6! Great job!"
-                : "Try again to score higher!"}
+              {passed ? "You beat Level 6! Great job!" : "Try again to score higher!"}
             </p>
             <button
               className={`mt-4 px-6 py-2 text-white rounded-md font-bold hover:cursor-pointer ${
