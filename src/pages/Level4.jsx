@@ -26,7 +26,7 @@ const Chat = () => {
   const currentChat = chatData[currentNode];
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900">
+    <div className="min-h-screen flex items-center justify-center">
       <div className="bg-gray-800 text-white p-6 rounded-lg shadow-lg max-w-lg w-full">
         <div className="mb-4">
           <p className="text-lg font-medium">{currentChat.message}</p>
