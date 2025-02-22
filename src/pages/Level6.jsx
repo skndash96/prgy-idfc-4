@@ -41,30 +41,30 @@ const Level6 = () => {
       alert("Please select an option before submitting.");
       return;
     }
-
+  
     const isCorrect = selectedOption === scamQuestions[currentQuestion].correct;
     const newScore = score + (isCorrect ? 3 : -1);
     setScore(newScore);
-
+  
     if (currentQuestion < scamQuestions.length - 1) {
       setCurrentQuestion((prev) => prev + 1);
       setSelectedOption(null);
     } else {
       addScore(6, newScore, Math.floor((Date.now() - startTime) / 1000));
-      setPassed(newScore > 5);
+      setPassed(newScore > 3);
       setShowPopup(true);
     }
   };
-
+  
   return (
     <div className="text-center flex flex-col items-center justify-around gap-y-8 p-6">
       <h1 className="text-5xl font-bold font-paytone">Scam Detection</h1>
       <p className="text-xl font-paytone mt-4">Identify the type of scam based on the image.</p>
-
+  
       <div className="bg-gradient-to-b from-yellow-100 to-yellow-500 text-black font-paytone p-6 rounded-lg shadow-md w-3/4">
         <img src={scamQuestions[currentQuestion].image} alt="Scam Example" className="rounded-lg w-full max-h-96 object-contain" />
         <p className="text-2xl font-semibold mt-4">{scamQuestions[currentQuestion].question}</p>
-
+  
         <div className="mt-4 flex flex-col gap-y-2">
           {scamQuestions[currentQuestion].options.map((option) => (
             <button
@@ -79,46 +79,44 @@ const Level6 = () => {
           ))}
         </div>
       </div>
-
-      <button
-        className="bg-green-500 text-white px-6 py-3 rounded-md text-xl font-bold hover:cursor-pointer"
-        onClick={handleSubmit}
-      >
+  
+      <button className="bg-green-500 text-white px-6 py-3 rounded-md text-xl font-bold hover:cursor-pointer" onClick={handleSubmit}>
         Submit Answer
       </button>
-
+  
       <h2 className="text-3xl font-bold font-paytone">Score: {score}</h2>
-
-      <button
-        className="mt-10 bg-blue-500 text-white px-4 py-2 rounded cursor-pointer font-paytone hover:cursor-pointer"
-        onClick={() => navigate("/levels")}
-      >
+  
+      <button className="mt-10 bg-blue-500 text-white px-4 py-2 rounded cursor-pointer font-paytone hover:cursor-pointer" onClick={() => navigate("/levels")}>
         Back to Levels
       </button>
-
+  
       {showPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white text-black p-8 rounded-lg text-center shadow-lg">
             <h2 className="text-3xl font-bold mb-4">Game Over!</h2>
-            <p className="text-2xl">
-              {passed ? "You beat Level 6! Great job!" : "Try again to score higher!"}
-            </p>
-            <button
-              className={`mt-4 px-6 py-2 text-white rounded-md font-bold hover:cursor-pointer ${
-                passed ? "bg-green-500" : "bg-red-500"
-              }`}
-              onClick={() => {
-                setShowPopup(false);
-                navigate("/levels");
-              }}
-            >
-              Back to Levels
-            </button>
+            <p className="text-2xl">Final Score: {score}</p>
+            
+            {score > 3 ? (
+              <button
+                className="mt-4 px-6 py-2 text-white bg-green-500 rounded-md font-bold hover:cursor-pointer"
+                onClick={() => navigate("/thankyou")}
+              >
+                Proceed to Thank You
+              </button>
+            ) : (
+              <button
+                className="mt-4 px-6 py-2 text-white bg-red-500 rounded-md font-bold hover:cursor-pointer"
+                onClick={() => window.location.reload()}
+              >
+                Retry
+              </button>
+            )}
           </div>
         </div>
       )}
     </div>
   );
+  
 };
 
 export default Level6;

@@ -18,7 +18,7 @@ const ThankYou = () => {
   return (
     <div className="text-center flex flex-col items-center justify-center gap-y-8 h-screen">
       <h1 className="text-6xl font-bold font-paytone">Thank You!</h1>
-      <p className="text-xl font-paytone mt-4">We appreciate your participation in the AI Detection Challenge.</p>
+      <p className="text-xl font-paytone mt-4">We appreciate your participation in the Bait or Legit? challange.</p>
       
       {!submitted ? (
         <div className="bg-gradient-to-b from-yellow-100 to-yellow-500 text-black font-paytone p-6 rounded-lg shadow-md w-3/4">
