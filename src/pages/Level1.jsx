@@ -340,23 +340,6 @@ const Level1 = () => {
                 <button
                   className="mt-4 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-800 transition-all duration-200 hover:cursor-pointer"
                   onClick={() => {
-                    // Retrieve saved levels
-                    const savedLevels =
-                      JSON.parse(localStorage.getItem("unlockedLevels")) ||
-                      initialLevels;
-
-                    // Unlock Level 2
-                    const updatedLevels = savedLevels.map((level) =>
-                      level.id === 2 ? { ...level, unlocked: true } : level
-                    );
-
-                    // Save back to localStorage
-                    localStorage.setItem(
-                      "unlockedLevels",
-                      JSON.stringify(updatedLevels)
-                    );
-
-                    // Navigate to levels page
                     navigate("/levels");
                   }}
                 >
