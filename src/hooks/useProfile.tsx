@@ -9,6 +9,7 @@ interface Profile {
 type LevelStats = {
   score: number;
   timeElapsed: number;
+  nextUnlocked?: boolean
 }[];
 
 const ProfileContext = createContext<{

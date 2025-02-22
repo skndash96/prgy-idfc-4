@@ -1,27 +1,30 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import { useProfile } from "../hooks/useProfile";
 
 const videos = [
-  { id: 1, url: "https://www.youtube.com/embed/uZV_50rJiaY", correct: "AI-Generated" },
+  {
+    id: 1,
+    url: "https://www.youtube.com/embed/uZV_50rJiaY",
+    correct: "AI-Generated",
+  },
   { id: 2, url: "https://www.youtube.com/embed/zG2RJ0-5G7A", correct: "Real" },
-  { id: 3, url: "https://www.youtube.com/embed/FhxmQ--Vc8M", correct: "AI-Generated" },
+  {
+    id: 3,
+    url: "https://www.youtube.com/embed/FhxmQ--Vc8M",
+    correct: "AI-Generated",
+  },
 ];
 
 const Level5 = () => {
+  const { addScore } = useProfile();
   const navigate = useNavigate();
   const [score, setScore] = useState(0);
   const [currentVideo, setCurrentVideo] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [passed, setPassed] = useState(false);
-
-  useEffect(() => {
-    // Check if Level 6 is already unlocked
-    const isLevel6Unlocked = localStorage.getItem("level6Unlocked") === "true";
-    if (isLevel6Unlocked) {
-      console.log("Level 6 already unlocked!");
-    }
-  }, []);
+  const [startTime, setStartTime] = useState(new Date());
 
   const handleSubmit = () => {
     if (!selectedOption) {
@@ -40,18 +43,22 @@ const Level5 = () => {
       const passedLevel = newScore > 2;
       setPassed(passedLevel);
       setShowPopup(true);
-
-      // Unlock Level 6 if passed
-      if (passedLevel) {
-        localStorage.setItem("level6Unlocked", "true");
-      }
+      addScore(
+        5,
+        newScore,
+        Math.floor((Date.now() - startTime.getTime()) / 1000)
+      );
     }
   };
 
   return (
     <div className="text-center flex flex-col items-center justify-around gap-y-8">
-      <h1 className="text-6xl font-bold font-paytone">AI Detection Challenge</h1>
-      <p className="text-xl font-paytone mt-4">Watch the video and decide if it's AI-Generated or Real.</p>
+      <h1 className="text-6xl font-bold font-paytone">
+        AI Detection Challenge
+      </h1>
+      <p className="text-xl font-paytone mt-4">
+        Watch the video and decide if it's AI-Generated or Real.
+      </p>
 
       <div className="bg-gradient-to-b from-yellow-100 to-yellow-500 text-black font-paytone p-6 rounded-lg shadow-md w-3/4">
         <iframe
@@ -69,7 +76,9 @@ const Level5 = () => {
             <button
               key={option}
               className={`p-3 text-lg rounded-lg ${
-                selectedOption === option ? "bg-blue-400 text-white" : "bg-gray-100"
+                selectedOption === option
+                  ? "bg-blue-400 text-white"
+                  : "bg-gray-100"
               } hover:bg-blue-300 transition hover:cursor-pointer`}
               onClick={() => setSelectedOption(option)}
             >
@@ -100,7 +109,9 @@ const Level5 = () => {
           <div className="bg-white text-black p-8 rounded-lg text-center shadow-lg">
             <h2 className="text-3xl font-bold mb-4">Game Over!</h2>
             <p className="text-2xl">
-              {passed ? "Congratulations! Level 6 is now unlocked." : "You need a higher score to advance. Try again!"}
+              {passed
+                ? "Congratulations! Level 6 is now unlocked."
+                : "You need a higher score to advance. Try again!"}
             </p>
             <button
               className={`mt-4 px-6 py-2 text-white rounded-md font-bold hover:cursor-pointer ${

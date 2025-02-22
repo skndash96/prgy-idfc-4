@@ -8,42 +8,36 @@ const initialLevels = [
     name: "Beginner's Luck",
     description: "Learn basic scams.",
     minScore: 8,
-    unlocked: true,
   },
   {
     id: 2,
     name: "Scam Buster",
     description: "Identify social engineering fraud.",
     minScore: 8,
-    unlocked: false,
   },
   {
     id: 3,
     name: "Phishing Awareness Quiz",
     description: "Test your knowledge of detection skills.",
     minScore: 8,
-    unlocked: false,
   },
   {
     id: 4,
     name: "Cyber Detective",
     description: "Spot real-time scams.",
     minScore: 8,
-    unlocked: false,
   },
   {
     id: 5,
     name: "Master of Deception",
     description: "Understand deepfake and fraud tactics.",
-    minScore: 8,
-    unlocked: false,
+    minScore: 2,
   },
   {
     id: 6,
     name: "Fake news Detector",
     description: "Do you believe everything you see on social media?",
     minScore: 8,
-    unlocked: false,
   },
 ];
 
@@ -51,33 +45,6 @@ const LevelSelection = () => {
   const { profile } = useProfile()
   const navigate = useNavigate();
   const [levels, setLevels] = useState(initialLevels);
-
-  // Load unlocked levels from localStorage on mount
-  useEffect(() => {
-    const savedLevels =
-      JSON.parse(localStorage.getItem("unlockedLevels")) || [];
-
-    // Merge savedLevels with initialLevels while keeping names/descriptions
-    const updatedLevels = initialLevels.map((level, index) => {
-      const savedLevel = savedLevels.find((l) => l.id === level.id);
-      return savedLevel ? { ...level, unlocked: savedLevel.unlocked } : level;
-    });
-
-    setLevels(updatedLevels);
-  }, []);
-
-  // Function to unlock the next level after completion
-  const unlockNextLevel = (completedLevelId) => {
-    setLevels((prevLevels) => {
-      const updatedLevels = prevLevels.map((level) =>
-        level.id === completedLevelId + 1 ? { ...level, unlocked: true } : level
-      );
-
-      // Save updated unlocked levels to localStorage
-      localStorage.setItem("unlockedLevels", JSON.stringify(updatedLevels));
-      return updatedLevels;
-    });
-  };
 
   return (
     <div className="text-center">

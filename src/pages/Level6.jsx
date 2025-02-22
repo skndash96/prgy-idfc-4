@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import { useProfile } from "../hooks/useProfile";
 
 const newsArticles = [
   { id: 1, text: "Breaking: Government announces 70% tax on all online transactions!", correct: "Phished" },
@@ -15,11 +16,16 @@ const Level6 = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [passed, setPassed] = useState(false);
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const { addScore } = useProfile();
+  const [startTime, setStartTime] = useState(Date.now())
 
   useEffect(() => {
-    // Ensure Level 6 is unlocked
-    const isLevel6Unlocked = localStorage.getItem("level6Unlocked") === "true";
-    if (!isLevel6Unlocked) {
+    const level6Unlocked = localStorage.getItem("level6Unlocked") === "true";
+    setIsUnlocked(level6Unlocked);
+
+    if (!level6Unlocked) {
+      alert("Level 6 is locked! Complete Level 5 first.");
       navigate("/levels");
     }
   }, [navigate]);
@@ -38,11 +44,15 @@ const Level6 = () => {
       setCurrentNews((prev) => prev + 1);
       setSelectedOption(null);
     } else {
-      const passedLevel = newScore > 5;
-      setPassed(passedLevel);
+      addScore(6, newScore, Math.floor((Date.now() - startTime)/1000))
+      setPassed(newScore > 5);
       setShowPopup(true);
     }
   };
+
+  if (!isUnlocked) {
+    return null; // Prevent rendering the game if it's locked
+  }
 
   return (
     <div className="text-center flex flex-col items-center justify-around gap-y-8 p-6">
@@ -88,7 +98,7 @@ const Level6 = () => {
           <div className="bg-white text-black p-8 rounded-lg text-center shadow-lg">
             <h2 className="text-3xl font-bold mb-4">Game Over!</h2>
             <p className="text-2xl">
-              {passed ? "Congratulations! You have completed Level 6." : "You need a higher score to win. Try again!"}
+              {passed ? "You beat Level 6! Great job!" : "Try again to score higher!"}
             </p>
             <button
               className={`mt-4 px-6 py-2 text-white rounded-md font-bold hover:cursor-pointer ${
@@ -96,10 +106,10 @@ const Level6 = () => {
               }`}
               onClick={() => {
                 setShowPopup(false);
-                navigate(passed ? "/levels" : "/game/6");
+                navigate("/levels");
               }}
             >
-              {passed ? "Back to Levels" : "Retry Level"}
+              Back to Levels
             </button>
           </div>
         </div>
