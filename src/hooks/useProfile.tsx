@@ -15,7 +15,8 @@ type LevelStats = {
 const ProfileContext = createContext<{
   profile: Profile | null,
   fetchProfile: () => void,
-  addScore: (levelId: number, score: number, timeElapsed: number) => void
+  addScore: (levelId: number, score: number, timeElapsed: number) => void,
+  updateProfile: (data: Omit<Profile, 'stats'>) => void
 } | undefined>(undefined)
 
 export const useProfile = () => {
@@ -36,12 +37,15 @@ export const ProfileProvider = ({
   const [profile, setProfile] = useState<Profile | null>(null);
 
   const fetchProfile = () => {
-    const defaultProfile = { name: "John Doe", age: 30, stats: {} } as Profile;
-
     const data = localStorage.getItem("profile")
-    if (!data) localStorage.setItem("profile", JSON.stringify(defaultProfile))
+    if (data) setProfile(JSON.parse(data))
+  }
 
-    setProfile(data ? JSON.parse(data) : defaultProfile)
+  const updateProfile = (prof: Omit<Profile, 'stats'>) => {
+    localStorage.setItem("profile", JSON.stringify({
+      stats: profile?.stats || [],
+      ...prof,
+    } as Profile))
   }
 
   const addScore = (id: number, score: number, timeElapsed: number) => {
@@ -64,9 +68,10 @@ export const ProfileProvider = ({
     <ProfileContext.Provider value={{
       profile,
       addScore,
-      fetchProfile
+      fetchProfile,
+      updateProfile
     }}>
-      {profile && children}
+      {children}
     </ProfileContext.Provider>
   )
 };

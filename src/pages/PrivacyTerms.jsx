@@ -1,9 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import React from "react";
 
-const PrivacyTerms = ({ type }) => {
-  const navigate = useNavigate();
-
+const PrivacyTerms = () => {
   const content = {
     privacy: {
       title: "Privacy Policy",
@@ -17,16 +15,14 @@ const PrivacyTerms = ({ type }) => {
 
   return (
     <div className="text-center flex flex-col items-center justify-around gap-y-8">
-      <h1 className="text-6xl font-bold font-paytone">{content[type].title}</h1>
-      <p className="text-xl font-paytone mt-4 w-3/4 bg-gradient-to-b from-yellow-100 to-yellow-500 p-6 rounded-lg shadow-md">
-        {content[type].text}
+      <h1 className="text-3xl font-bold font-paytone">{content.terms.title}</h1>
+      <p className="text-black font-paytone mt-4 w-3/4 bg-gradient-to-b from-yellow-100 to-yellow-500 p-6 rounded-lg shadow-md">
+        {content.terms.text}
       </p>
-      <button
-        className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer font-paytone"
-        onClick={() => navigate("/levels")}
-      >
-        Back to Levels
-      </button>
+      <h1 className="text-3xl font-bold font-paytone">{content.privacy.title}</h1>
+      <p className="text-black font-paytone mt-4 w-3/4 bg-gradient-to-b from-yellow-100 to-yellow-500 p-6 rounded-lg shadow-md">
+        {content.privacy.text}
+      </p>
     </div>
   );
 };
