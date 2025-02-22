@@ -108,10 +108,10 @@ const Level5 = () => {
               }`}
               onClick={() => {
                 setShowPopup(false);
-                navigate(passed ? "/game/6" : "/game/5");
+                navigate(passed ? "levels" : "/game/5");
               }}
             >
-              {passed ? "Next Level" : "Retry Level"}
+              {passed ? "Back to Levels" : "Retry Level"}
             </button>
           </div>
         </div>

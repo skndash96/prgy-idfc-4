@@ -124,17 +124,17 @@ const Level3 = () => {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-0">
           <div className="bg-white text-black p-8 rounded-lg text-center shadow-lg">
             <h2 className="text-3xl font-bold mb-4">Game Over!</h2>
-            <p className="text-2xl">{passed ? "Congratulations! You can proceed to the next game." : "You need a higher score to advance. Try again!"}</p>
+            <p className="text-2xl">{passed ? "Congratulations! You can proceed to the next level." : "You need a higher score to advance. Try again!"}</p>
             <button
               className={`mt-4 px-6 py-2 text-white rounded-md font-bold ${
                 passed ? "bg-green-500" : "bg-red-500"
               }`}
               onClick={() => {
                 setShowPopup(false);
-                navigate(passed ? "/game/4" : "/game/3");
+                navigate(passed ? "/levels" : "/game/3");
               }}
             >
-              {passed ? "Next Game" : "Retry Level"}
+              {passed ? "Back to Levels" : "Retry Level"}
             </button>
           </div>
         </div>
