@@ -1,27 +1,28 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 
-const videos = [
-  { id: 1, url: "https://www.youtube.com/embed/uZV_50rJiaY", correct: "AI-Generated" },
-  { id: 2, url: "https://www.youtube.com/embed/zG2RJ0-5G7A", correct: "Real" },
-  { id: 3, url: "https://www.youtube.com/embed/FhxmQ--Vc8M", correct: "AI-Generated" },
+const newsArticles = [
+  { id: 1, text: "Breaking: Government announces 70% tax on all online transactions!", correct: "Phished" },
+  { id: 2, text: "New study finds coffee can boost memory and brain function!", correct: "Genuine" },
+  { id: 3, text: "Urgent: Your bank account has been compromised! Click here to secure it.", correct: "Phished" },
+  { id: 4, text: "Scientists discover a new exoplanet with potential signs of life!", correct: "Genuine" },
 ];
 
-const Level5 = () => {
+const Level6 = () => {
   const navigate = useNavigate();
   const [score, setScore] = useState(0);
-  const [currentVideo, setCurrentVideo] = useState(0);
+  const [currentNews, setCurrentNews] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [passed, setPassed] = useState(false);
 
   useEffect(() => {
-    // Check if Level 6 is already unlocked
+    // Ensure Level 6 is unlocked
     const isLevel6Unlocked = localStorage.getItem("level6Unlocked") === "true";
-    if (isLevel6Unlocked) {
-      console.log("Level 6 already unlocked!");
+    if (!isLevel6Unlocked) {
+      navigate("/levels");
     }
-  }, []);
+  }, [navigate]);
 
   const handleSubmit = () => {
     if (!selectedOption) {
@@ -29,43 +30,30 @@ const Level5 = () => {
       return;
     }
 
-    const isCorrect = selectedOption === videos[currentVideo].correct;
+    const isCorrect = selectedOption === newsArticles[currentNews].correct;
     const newScore = score + (isCorrect ? 3 : -1);
     setScore(newScore);
 
-    if (currentVideo < videos.length - 1) {
-      setCurrentVideo((prev) => prev + 1);
+    if (currentNews < newsArticles.length - 1) {
+      setCurrentNews((prev) => prev + 1);
       setSelectedOption(null);
     } else {
-      const passedLevel = newScore > 2;
+      const passedLevel = newScore > 5;
       setPassed(passedLevel);
       setShowPopup(true);
-
-      // Unlock Level 6 if passed
-      if (passedLevel) {
-        localStorage.setItem("level6Unlocked", "true");
-      }
     }
   };
 
   return (
-    <div className="text-center flex flex-col items-center justify-around gap-y-8">
-      <h1 className="text-6xl font-bold font-paytone">AI Detection Challenge</h1>
-      <p className="text-xl font-paytone mt-4">Watch the video and decide if it's AI-Generated or Real.</p>
+    <div className="text-center flex flex-col items-center justify-around gap-y-8 p-6">
+      <h1 className="text-5xl font-bold font-paytone">Fake News Detection</h1>
+      <p className="text-xl font-paytone mt-4">Read the news article and decide if it's Genuine or Phished.</p>
 
-      <div className="bg-gradient-to-b from-yellow-100 to-yellow-500 text-black font-paytone p-6 rounded-lg shadow-md w-3/4">
-        <iframe
-          width="100%"
-          height="400"
-          src={videos[currentVideo].url}
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
+      <div className="bg-gradient-to-b from-red-100 to-red-500 text-black font-paytone p-6 rounded-lg shadow-md w-3/4">
+        <p className="text-2xl font-semibold">{newsArticles[currentNews].text}</p>
 
         <div className="mt-4 flex flex-col gap-y-2">
-          {["AI-Generated", "Real"].map((option) => (
+          {["Genuine", "Phished"].map((option) => (
             <button
               key={option}
               className={`p-3 text-lg rounded-lg ${
@@ -86,7 +74,7 @@ const Level5 = () => {
         Submit Answer
       </button>
 
-      <h2 className="text-4xl font-bold font-paytone">Score: {score}</h2>
+      <h2 className="text-3xl font-bold font-paytone">Score: {score}</h2>
 
       <button
         className="mt-10 bg-blue-500 text-white px-4 py-2 rounded cursor-pointer font-paytone hover:cursor-pointer"
@@ -100,7 +88,7 @@ const Level5 = () => {
           <div className="bg-white text-black p-8 rounded-lg text-center shadow-lg">
             <h2 className="text-3xl font-bold mb-4">Game Over!</h2>
             <p className="text-2xl">
-              {passed ? "Congratulations! Level 6 is now unlocked." : "You need a higher score to advance. Try again!"}
+              {passed ? "Congratulations! You have completed Level 6." : "You need a higher score to win. Try again!"}
             </p>
             <button
               className={`mt-4 px-6 py-2 text-white rounded-md font-bold hover:cursor-pointer ${
@@ -108,7 +96,7 @@ const Level5 = () => {
               }`}
               onClick={() => {
                 setShowPopup(false);
-                navigate(passed ? "/levels" : "/game/5");
+                navigate(passed ? "/levels" : "/game/6");
               }}
             >
               {passed ? "Back to Levels" : "Retry Level"}
@@ -120,4 +108,4 @@ const Level5 = () => {
   );
 };
 
-export default Level5;
+export default Level6;

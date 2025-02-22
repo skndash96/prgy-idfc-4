@@ -10,7 +10,7 @@ const Home = () => {
       </p>
       {/* Subtitle */}
       <p className="mt-6 w-full max-w-2xl text-2xl md:text-4xl text-center text-white font-paytone">
-        Test your wits to crack the ultimate phishing game !
+        Test your wits to crack the ultimate phishing game!
       </p>
 
       {/* Start Button */}

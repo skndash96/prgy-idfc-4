@@ -45,10 +45,10 @@ const Level2 = () => {
   return (
     <div className="text-center flex flex-col items-center justify-around gap-y-8">
       <div className="flex flex-col items-center justify-between gap-y-4">
-        <h1 className="text-6xl font-bold font-paytone flex">Scam Buster</h1>
+        <h1 className="text-6xl font-bold font-paytone flex ">Scam Buster</h1>
         <p className="text-xl font-paytone mt-4">Identify scam calls.</p>
 
-        <span className="ml-4 -mb-2 text-xl self-start font-saira font-semibold">
+        <span className=" ml-4 -mb-2 text-xl self-start font-saira font-semibold">
           Audio {currentAudio + 1}
         </span>
         <Audio src={audios[currentAudio].src} />

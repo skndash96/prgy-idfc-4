@@ -38,6 +38,13 @@ const initialLevels = [
     minScore: 8,
     unlocked: false,
   },
+  {
+    id: 6,
+    name: "Fake news Detector",
+    description: "Do you believe everything you see on social media?",
+    minScore: 8,
+    unlocked: false,
+  },
 ];
 
 const LevelSelection = () => {

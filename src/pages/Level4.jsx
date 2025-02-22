@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useProfile } from "../hooks/useProfile";
 import chatData from "../pages/chatdata";
 
 const Chat = () => {
   const [currentNode, setCurrentNode] = useState("start");
   const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
+  const { addScore } = useProfile();
 
   const handleOptionClick = (nextNode) => {
     setCurrentNode(nextNode);
@@ -13,6 +15,7 @@ const Chat = () => {
     // Check if the next node has no options (i.e., it's an endpoint)
     if (!chatData[nextNode]?.options || chatData[nextNode].options.length === 0) {
       setShowPopup(true);
+      addScore(4, 10, 0); // Unlock Level 5 (assuming 10 points and 0 seconds as placeholders)
     }
   };
 

@@ -62,7 +62,7 @@ export default function AudioPlayer({ src }: { src: string }) {
   };
 
   return (
-    <div className="flex items-center gap-4 bg-gray-900 text-white p-4 rounded-2xl shadow-lg w-full">
+    <div className="flex items-center gap-4 bg-gray-900 text-white p-4 rounded-2xl shadow-lg w-full border-4 border-blue-500 border-solid">
       <audio ref={audioRef} src={src} preload="metadata" />
 
       {/* Play/Pause Button */}

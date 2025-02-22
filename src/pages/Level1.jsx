@@ -32,6 +32,12 @@ const initialLevels = [
     description: "Master all scam detection skills.",
     unlocked: false,
   },
+  {
+    id: 6,
+    name: "Fake news Detector",
+    description: "Do you believe everything you see on social media?",
+    unlocked: false,
+  }
 ];
 const savedLevels =
   JSON.parse(localStorage.getItem("unlockedLevels")) || initialLevels;
