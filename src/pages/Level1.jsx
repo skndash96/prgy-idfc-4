@@ -1,51 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useProfile } from "../hooks/useProfile";
-const initialLevels = [
-  {
-    id: 1,
-    name: "Beginner's Luck",
-    description: "Learn basic scams.",
-    unlocked: true,
-  },
-  {
-    id: 2,
-    name: "Scam Buster",
-    description: "Identify social engineering fraud.",
-    unlocked: false,
-  },
-  {
-    id: 3,
-    name: "Cyber Detective",
-    description: "Spot real-time scams.",
-    unlocked: false,
-  },
-  {
-    id: 4,
-    name: "Master of Deception",
-    description: "Understand deepfake and fraud tactics.",
-    unlocked: false,
-  },
-  {
-    id: 5,
-    name: "Fraud Terminator",
-    description: "Master all scam detection skills.",
-    unlocked: false,
-  },
-  {
-    id: 6,
-    name: "Fake news Detector",
-    description: "Do you believe everything you see on social media?",
-    unlocked: false,
-  },
-];
-const savedLevels =
-  JSON.parse(localStorage.getItem("unlockedLevels")) || initialLevels;
 
 const emailsData = [
   {
     id: 1,
     sender: "HR Department",
+    senderEmail: "hr-infotech@passinbox.com",
     subject: "Remote Working Policy Review - Win an iPhone 15!",
     content: `Dear John,\nWe're excited to announce that our updated Remote Working Policy is now ready for review. 
 As part of our commitment to transparency and fostering a culture of open feedback, 
@@ -60,10 +21,13 @@ The winner will be announced at the end of next month!\n
 Best of luck to all that enter!`,
     phishing: true,
     image: "/mail.png",
+    correctReason: "The sender's email is suspicious, the offer of a free iPhone is a classic phishing lure, and it pressures users to act by scanning a QR code.",
+    wrongHelp: "Legitimate companies do not offer high-value rewards just for policy reviews. Always verify the sender’s email and avoid scanning unknown QR codes."
   },
   {
     id: 2,
     sender: "Stripe",
+    senderEmail: "noreply@stripe.com",
     subject: "Your Stripe password has been successfully updated",
     content: `Hello John,\n
   Your Stripe password has been successfully updated.\n
@@ -76,76 +40,96 @@ Best of luck to all that enter!`,
   If you see any suspicious activity on your account, please 
   <a href="#" class="text-blue-500 underline">contact us via our support site</a>.\n
   - The Stripe team`,
-    phishing: true,
+    phishing: false,
     image: "/mail.png",
+    correctReason: "The email comes from a legitimate Stripe domain, contains no urgency tactics, and provides a valid Stripe link.",
+    wrongHelp: "Phishing emails usually contain misleading links or urgent warnings. This email directs users to Stripe’s official domain for security verification."
   },
-
   {
     id: 3,
     sender: "OpenAI",
+    senderEmail: "openai-120120i1@bajk.com",
     subject: "The latest version of ChatGPT now available!",
     content:
-      "You have been selected to test our latest AI model. Click here to access the beta.",
+      `You have been selected to test our latest AI model.
+<a href="#" class="text-blue-500 underline">Click here</a> to access the beta.`,
     phishing: true,
     image: "/mail.png",
+    correctReason: "The sender email is not from OpenAI’s official domain, and the email pressures the user to click an unverified link.",
+    wrongHelp: "Official beta invitations from OpenAI will come from an openai.com domain and provide more details. Avoid clicking unknown links."
   },
   {
     id: 4,
     sender: "IT Security Team",
+    senderEmail: "itsec@infosys.com",
     subject: "Upcoming System Maintenance - Action Required",
     content:
       "Dear Employee,\n\nWe are conducting a scheduled system maintenance on March 10, 2024, from 12:00 AM to 4:00 AM (UTC). During this period, some internal services may be temporarily unavailable.\n\nTo ensure a smooth transition, please:\n- Save your work and log out before the maintenance begins.\n- Avoid accessing company systems during the maintenance window.\n- If you experience issues after maintenance, contact IT support at support@company.com.\n\nFor more details, please visit our official IT support portal:\n\n<a href='https://company-itportal.com/maintenance' target='_blank'>View Maintenance Details</a>\n\nThank you for your cooperation.\n\nBest regards,\nIT Security Team",
     phishing: false,
     image: "/mail.png",
+    correctReason: "The email is from an official IT department address, provides clear information, and does not contain suspicious links or urgent threats.",
+    wrongHelp: "Phishing emails often include fake urgency and suspicious links. This email, however, is informative and from a trusted source."
   },
-
   {
     id: 5,
     sender: "2024-EAP Support Team",
+    senderEmail: "finance-providers@aspkas.com",
     subject: "2024 Employee Assistance Program - Financial Support Available",
     content:
       "Dear Employees,\n\nWe hope this message finds you well. We understand that the past year has been challenging for many, and we want to extend our support during these times. We are pleased to introduce the 2024 Employee Assistance Program, designed to provide financial assistance to employees and their families.\n\nAs part of our commitment to your well-being, this program aims to help alleviate financial burdens and offer some relief. We have allocated funds to provide $2,250 to each eligible family or individual who meets the specified criteria.\n\nIf you or your family have experienced financial hardship and could benefit from this program, we encourage you to apply. The application process is now open and will remain so until December 31, 2024. To apply for the 2024 Employee Assistance Program, please use the link provided below:\n\n<a href='https://kralakademi.com/ess/ess/index.html' class='text-blue-500 underline'>2024 Employee Assistance Program</a>\n\nWarm regards,\n\nThe 2024-EAP Support Team",
     phishing: true,
     image: "/mail.png",
+    correctReason: "The sender’s email is not from an official company domain, and the email promises financial aid while leading to an unknown link.",
+    wrongHelp: "Scammers often use financial aid as bait. Always verify offers with HR directly before clicking on unknown links."
   },
   {
     id: 6,
     sender: "HR Department",
+    senderEmail: "john@hrdept.com",
     subject: "Annual Leave Policy Update - Please Review",
     content:
       "Dear Team,\n\nWe would like to inform you about an update to our annual leave policy, effective April 1, 2025. The updated policy includes:\n- Increased leave days for employees with over 5 years of service.\n- New guidelines on leave carryover.\n- Simplified request and approval process.\n\nPlease review the full details here:\n\n<a href='https://company-portal.com/leave-policy' target='_blank'>View Updated Policy</a>\n\nIf you have any questions, feel free to reach out to HR at hr@company.com.\n\nBest regards,\nHR Department",
     phishing: false,
     image: "/mail.png",
+    correctReason: "The sender is from an internal HR department, the message provides legitimate policy updates, and links lead to a known company domain.",
+    wrongHelp: "Phishing emails often demand immediate action or use fake domains. This email provides useful company-related information without urgency."
   },
-
   {
     id: 7,
     sender: "IT Helpdesk",
+    senderEmail: "help@gglo.com",
     subject: "Urgent: Verify Your Email Access Now",
     content:
       "Dear User,\n\nWe have noticed unusual login attempts on your account. To prevent unauthorized access, please verify your email immediately by clicking the secure link below:\n\n<a href='https://secure-mail.verification.com' class='text-blue-500 underline'>Verify Email Now</a>\n\nFailure to verify within 24 hours will result in account suspension.\n\nThank you,\nIT Helpdesk Support",
     phishing: true,
     image: "/mail.png",
+    correctReason: "The email creates urgency, asks for immediate action, and links to a suspicious domain unrelated to the company.",
+    wrongHelp: "Legitimate security alerts provide clear sender identification and do not use threatening language. Verify with your IT team before clicking any links."
   },
   {
     id: 8,
     sender: "Finance Department",
+    senderEmail: "fintech@hack.in",
     subject: "Payroll Processing Update - Important Notice",
     content:
       "Dear Employees,\n\nWe would like to inform you that our payroll processing system will undergo scheduled maintenance on March 20, 2025. As a result, salary disbursements for this cycle may be delayed by 24 hours.\n\nRest assured, we are working to minimize any inconvenience. If you have any concerns, please contact our finance team at finance@company.com.\n\nThank you for your patience and understanding.\n\nBest regards,\nFinance Department",
     phishing: false,
     image: "/mail.png",
+    correctReason: "The sender is a company department, provides advance notice of a routine event, and does not ask for personal information.",
+    wrongHelp: "Phishing emails often create fake payroll issues to steal credentials. This email, however, only provides a general update."
   },
-
   {
     id: 9,
     sender: "Admin Support",
+    senderEmail: "admin@aisjp.com",
     subject: "Action Required: Confirm Your Employee Benefits",
     content:
       "Dear Employee,\n\nWe are updating our employee benefits records and need you to confirm your details. Failure to update your information may result in benefit suspension.\n\nPlease confirm your details immediately by clicking the link below:\n\n<a href='https://secure-hrbenefits.com/update' class='text-blue-500 underline'>Confirm Benefits Now</a>\n\nThis must be completed within 48 hours to avoid service interruption.\n\nBest regards,\nAdmin Support Team",
     phishing: true,
     image: "/mail.png",
-  },
+    correctReason: "The sender email is suspicious, the email pressures users to act quickly, and the link leads to an unknown site.",
+    wrongHelp: "Scammers use urgent language to trick employees into submitting personal information. Always verify benefit updates with HR directly."
+  }
 ];
 
 const Level1 = () => {
@@ -158,6 +142,7 @@ const Level1 = () => {
   const [timeUp, setTimeUp] = useState(false);
   const [allEmailsViewed, setAllEmailsViewed] = useState(false);
   const { addScore } = useProfile();
+  const [explaination, setExplaination] = useState(null)
 
   useEffect(() => {
     if (timeLeft > 0) {
@@ -171,9 +156,18 @@ const Level1 = () => {
 
   const handleSelection = (isPhishing) => {
     if (selectedEmail) {
+      const isCorrect = selectedEmail.phishing === isPhishing
+
       const newScore =
-        selectedEmail.phishing === isPhishing ? score + 3 : score - 1;
+        isCorrect ? score + 3 : score - 1;
+
+      setExplaination({
+        text: isCorrect ? selectedEmail.correctReason : selectedEmail.wrongHelp,
+        correct: isCorrect
+      })
+
       setScore(newScore);
+
       const remainingEmails = emails.filter(
         (email) => email.id !== selectedEmail.id
       );
@@ -187,9 +181,9 @@ const Level1 = () => {
   };
 
   return (
-    <div className="-mt-17 flex flex-col items-center p-6 text-white relative">
+    <div className="flex flex-col items-center p-6 text-white relative">
       {/* Score & Timer in One Large Button */}
-      <div className="border-blue-300 border-4 absolute top-4 right-4 bg-gray-900 px-6 py-3 rounded-full text-lg font-semibold shadow-md flex space-x-6">
+      <div className="absolute top-4 right-4 bg-gray-900 px-6 py-3 rounded-full text-lg font-semibold shadow-md flex space-x-6">
         <span className="text-green-400">Score: {score}</span>
         <span className="text-red-400">Time Left: {timeLeft}s</span>
       </div>
@@ -203,11 +197,10 @@ const Level1 = () => {
             emails.map((email) => (
               <div
                 key={email.id}
-                className={`p-3 shadow-sm rounded-lg mb-3 cursor-pointer flex items-center space-x-3 ${
-                  selectedEmail?.id === email.id
-                    ? "bg-blue-200"
-                    : "bg-white hover:bg-gray-200 transition-all duration-200"
-                }`}
+                className={`p-3 shadow-sm rounded-lg mb-3 cursor-pointer flex items-center space-x-3 ${selectedEmail?.id === email.id
+                  ? "bg-blue-200"
+                  : "bg-white hover:bg-gray-200 transition-all duration-200"
+                  }`}
                 onClick={() => setSelectedEmail(email)}
               >
                 <img
@@ -231,7 +224,11 @@ const Level1 = () => {
           <h2 className="text-lg font-bold text-center">Email Content</h2>
           {selectedEmail ? (
             <div className="mt-4 text-sm">
-              <p className="font-semibold text-lg">{selectedEmail.sender}</p>
+              <p className="font-semibold text-lg">{selectedEmail.sender}
+                <span className="ml-2 text-base text-neutral-600">
+                  ({selectedEmail.senderEmail})
+                </span>
+              </p>
               <p className="text-sm text-gray-600">{selectedEmail.subject}</p>
 
               {/* Render Email Content with QR Code */}
@@ -285,15 +282,34 @@ const Level1 = () => {
         {new Array(emailsData.length).fill(null).map((_, i) => (
           <li
             key={i}
-            className={`w-4 h-4 rounded-full ${
-              i < emailsData.length - emails.length ||
+            className={`w-4 h-4 rounded-full ${i < emailsData.length - emails.length ||
               (selectedEmail && i === emailsData.length - emails.length)
-                ? "bg-amber-400"
-                : "bg-amber-800"
-            }`}
+              ? "bg-amber-400"
+              : "bg-amber-800"
+              }`}
           ></li>
         ))}
       </ul>
+
+      {/* Explaination */}
+      {explaination && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white text-black max-w-4xl p-6 rounded-lg shadow-xl text-center">
+            <h2 className="text-2xl font-bold mb-2">
+              {explaination.correct ? "You got it" : "Uh oh. You got phished"}
+            </h2>
+            <p className="mt-4">
+              {explaination.text}
+            </p>
+            <button
+              className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-800 transition-all duration-200"
+              onClick={() => setExplaination(null)}
+            >
+              Continue
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Time Up Popup */}
       {timeUp && (

@@ -21,7 +21,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="p-4 max-w-2xl mx-auto">
+    <div className="p-4 grow grid place-items-center max-w-4xl mx-auto">
       <h1 className="text-2xl font-saira">
         Profile
       </h1>
