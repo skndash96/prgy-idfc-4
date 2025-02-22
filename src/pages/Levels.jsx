@@ -47,7 +47,7 @@ const LevelSelection = () => {
   const [levels, setLevels] = useState(initialLevels);
 
   return (
-    <div className="text-center">
+    <div className="pb-12 text-center">
       <h1 className="text-5xl font-saira pt-2 text-center text-transparent bg-clip-text bg-[linear-gradient(to_bottom,#A2FEFE_0%,#D5F6FA_40%,#DDF5F9_60%,#E9DBFC_80%,#ADC3FC_100%)] drop-shadow-[-15px_4px_8px_#6B1868] font-bold">
         Select Your Challenge!
       </h1>
