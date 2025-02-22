@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+import { useProfile } from "../hooks/useProfile";
 
 const questions = [
   {
@@ -49,17 +50,23 @@ const questions = [
 ];
 
 const Level3 = () => {
+  const { addScore } = useProfile()
   const navigate = useNavigate();
   const [score, setScore] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [passed, setPassed] = useState(false);
+  const [startTime, setStartTime] = useState(new Date())
 
   const handleSubmit = () => {
     if (selectedOption === null) {
       alert("Please select an option before submitting.");
       return;
+    }
+
+    if (currentQuestion === 0) {
+      setStartTime(new Date())
     }
 
     // Calculate new score
@@ -76,6 +83,7 @@ const Level3 = () => {
       // Check pass condition and show popup
       setPassed(newScore > 5);
       setShowPopup(true);
+      addScore(3, newScore, Math.floor((Date.now() - startTime.getTime())/1000));
     }
   };
 

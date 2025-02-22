@@ -9,27 +9,30 @@ import Level3 from "./pages/Level3";
 import Level4 from "./pages/Level4";
 import Level5 from "./pages/Level5";
 import ThankYou from "./pages/Thankyou";
+import { ProfileProvider } from "./hooks/useProfile"
 
 const App = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-[#070625] via-40% to-[#3D348E] text-white">
-      <Header />
-      <div className="grow flex flex-col h-full">
-        <Router>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/levels" element={<LevelSelection />} />
-            <Route path="/game/1" element={<Level1 />} />
-            <Route path="/game/2" element={<Level2 />} />
-            <Route path="/game/3" element={<Level3 />} />
-            <Route path="/game/4" element={<Level4 />} />
-            <Route path="/game/5" element={<Level5 />} />
-            <Route path="/thankyou" element={<ThankYou />} />
-          </Routes>
-        </Router>
+    <ProfileProvider>
+      <div className="min-h-screen flex flex-col bg-gradient-to-b from-[#070625] via-40% to-[#3D348E] text-white">
+        <Header />
+        <div className="grow flex flex-col h-full">
+          <Router>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/levels" element={<LevelSelection />} />
+              <Route path="/game/1" element={<Level1 />} />
+              <Route path="/game/2" element={<Level2 />} />
+              <Route path="/game/3" element={<Level3 />} />
+              <Route path="/game/4" element={<Level4 />} />
+              <Route path="/game/5" element={<Level5 />} />
+              <Route path="/thankyou" element={<ThankYou />} />
+            </Routes>
+          </Router>
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </ProfileProvider>
   );
 };
 

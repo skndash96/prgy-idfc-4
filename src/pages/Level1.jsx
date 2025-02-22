@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useProfile } from "../hooks/useProfile";
 const initialLevels = [
   {
     id: 1,
@@ -108,9 +109,11 @@ const Level1 = () => {
   const [emails, setEmails] = useState(emailsData);
   const [selectedEmail, setSelectedEmail] = useState(null);
   const [score, setScore] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(120);
+  const SECS = 120
+  const [timeLeft, setTimeLeft] = useState(SECS);
   const [timeUp, setTimeUp] = useState(false);
   const [allEmailsViewed, setAllEmailsViewed] = useState(false);
+  const { addScore } = useProfile()
 
   useEffect(() => {
     if (timeLeft > 0) {
@@ -124,7 +127,8 @@ const Level1 = () => {
 
   const handleSelection = (isPhishing) => {
     if (selectedEmail) {
-      setScore(selectedEmail.phishing === isPhishing ? score + 3 : score - 1);
+      const newScore = selectedEmail.phishing === isPhishing ? score + 3 : score - 1;
+      setScore(newScore);
       const remainingEmails = emails.filter(
         (email) => email.id !== selectedEmail.id
       );
@@ -132,6 +136,7 @@ const Level1 = () => {
       setSelectedEmail(null);
       if (remainingEmails.length === 0) {
         setAllEmailsViewed(true);
+        addScore(1, newScore, SECS - timeLeft)
       }
     }
   };
@@ -230,6 +235,12 @@ const Level1 = () => {
           )}
         </div>
       </div>
+
+      <ul className="mt-4 flex gap-2">
+        {new Array(emailsData.length).fill(null).map((_, i) => (
+          <li key={i} className={`w-4 h-4 rounded-full ${(i < emailsData.length - emails.length || (selectedEmail && i === emailsData.length - emails.length)) ? "bg-amber-400" : "bg-amber-800"}`}></li>
+        ))}
+      </ul  >
 
       {/* Time Up Popup */}
       {timeUp && (
