@@ -63,7 +63,7 @@ const LevelSelection = () => {
               key={level.id}
               className={`p-4 relative flex flex-col items-center justify-center rounded-4xl shadow-lg w-80 h-60 ${unlocked
                   ? "bg-gradient-to-b from-yellow-300 to-yellow-500 text-black"
-                  : "bg-gradient-to-b from-red-500 to-red-700 text-white opacity-50"
+                  : "bg-gradient-to-b from-red-500 to-red-700 text-white"
                 }`}
             >
               <h2 className="font-bold text-3xl font-paytone">{level.name}</h2>
