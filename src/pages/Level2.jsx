@@ -69,7 +69,7 @@ const Level2 = () => {
 
         {/* Submit Button */}
         <button
-          className="bg-gradient-to-b from-yellow-100 to-yellow-500 text-black h-16 w-56 flex justify-center items-center text-3xl font-paytone rounded-4xl"
+          className="bg-gradient-to-b from-yellow-100 to-yellow-500 text-black h-16 w-56 flex justify-center items-center text-3xl font-paytone rounded-4xl hover:cursor-pointer"
           onClick={handleSubmit}
         >
           Submit
@@ -80,7 +80,7 @@ const Level2 = () => {
 
       {/* Back to Levels Button */}
       <button
-        className="mt-10 bg-blue-500 text-white px-4 py-2 rounded cursor-pointer font-paytone"
+        className="mt-10 bg-blue-500 text-white px-4 py-2 rounded cursor-pointer font-paytone hover:cursor-pointer"
         onClick={() => navigate("/levels")}
       >
         Back to Levels
@@ -93,7 +93,7 @@ const Level2 = () => {
             <h2 className="text-3xl font-bold mb-4">Game Over!</h2>
             <p className="text-2xl">Your final score: {score}</p>
             <button
-              className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-md font-bold"
+              className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-md font-bold hover:cursor-pointer"
               onClick={() => {
                 setShowPopup(false);
                 navigate("/game/3");

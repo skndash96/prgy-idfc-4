@@ -81,8 +81,8 @@ const LevelSelection = () => {
                 : "bg-gradient-to-b from-red-500 to-red-700 text-white opacity-50"
             }`}
           >
-            <h2 className="font-bold text-3xl">{level.name}</h2>
-            <p className="text-sm mt-2">{level.description}</p>
+            <h2 className="font-bold text-3xl font-paytone">{level.name}</h2>
+            <p className="text-sm mt-2 font-paytone">{level.description}</p>
 
             <button
               className="mt-4"
@@ -97,6 +97,7 @@ const LevelSelection = () => {
               <img
                 src={level.unlocked ? "play.svg" : "locked.svg"}
                 alt="play button"
+                className={level.unlocked ? "hover:cursor-pointer hover:scale-105" : "hover:cursor-not-allowed"}
               />
             </button>
           </div>

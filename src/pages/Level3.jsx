@@ -91,7 +91,7 @@ const Level3 = () => {
           {questions[currentQuestion].options.map((option, index) => (
             <button
               key={index}
-              className={`p-3 text-lg rounded-lg ${
+              className={`p-3 text-lg rounded-lg hover:cursor-pointer ${
                 selectedOption === index ? "bg-blue-400 text-white" : "bg-gray-100"
               } hover:bg-blue-300 transition`}
               onClick={() => setSelectedOption(index)}
@@ -103,7 +103,7 @@ const Level3 = () => {
       </div>
 
       <button
-        className="bg-green-500 text-white px-6 py-3 rounded-md text-xl font-bold"
+        className="bg-green-500 text-white px-6 py-3 rounded-md text-xl font-bold hover:cursor-pointer"
         onClick={handleSubmit}
       >
         Submit Answer
@@ -113,7 +113,7 @@ const Level3 = () => {
 
       {/* Back to Levels Button */}
       <button
-        className="mt-10 bg-blue-500 text-white px-4 py-2 rounded cursor-pointer font-paytone"
+        className="mt-10 bg-blue-500 text-white px-4 py-2 rounded font-paytone hover:cursor-pointer"
         onClick={() => navigate("/levels")}
       >
         Back to Levels
@@ -126,7 +126,7 @@ const Level3 = () => {
             <h2 className="text-3xl font-bold mb-4">Game Over!</h2>
             <p className="text-2xl">{passed ? "Congratulations! You can proceed to the next level." : "You need a higher score to advance. Try again!"}</p>
             <button
-              className={`mt-4 px-6 py-2 text-white rounded-md font-bold ${
+              className={`mt-4 px-6 py-2 text-white rounded-md font-bold hover:cursor-pointer ${
                 passed ? "bg-green-500" : "bg-red-500"
               }`}
               onClick={() => {
